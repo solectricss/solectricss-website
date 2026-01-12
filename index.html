@@ -6,43 +6,8 @@
 <title>Solectrics | Solar Energy Solutions</title>
 
 <style>
-  /* Page fade-out animation */
-body.fade-out {
-  animation: fadeOut 0.7s forwards;
-}
-
-@keyframes fadeOut {
-  0% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(-20px); }
-}
-
-/* ===== About Us Windowed Card ===== */
-.about-window {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 3rem 2rem;
-  background: rgba(15, 15, 15, 0.85); /* semi-transparent dark glass */
-  border-radius: 20px;
-  box-shadow: 0 0 60px rgba(0,0,0,0.6);
-  border: 1px solid rgba(255,255,255,0.05);
-  text-align: center;
-  backdrop-filter: blur(8px); /* glass effect */
-}
-
-.about-window h2 {
-  font-size: clamp(2rem, 5vw, 2.5rem);
-  margin-bottom: 1rem;
-  letter-spacing: 3px;
-}
-
-.about-window p {
-  font-size: 1.05rem;
-  color: #ccc;
-  line-height: 1.6;
-}
-
 /* ================================
-   TESLA / SUNPOWER DESIGN SYSTEM
+   BASE STYLES
 ================================ */
 * {
   margin: 0;
@@ -55,6 +20,16 @@ body {
   background: #0b0b0b;
   color: #eaeaea;
   line-height: 1.6;
+  scroll-behavior: smooth; /* smooth scrolling */
+  transition: opacity 0.7s, transform 0.7s; /* for fade-out page animation */
+}
+
+/* ================================
+   PAGE FADE-OUT ANIMATION
+================================ */
+body.fade-out {
+  opacity: 0;
+  transform: translateY(-20px);
 }
 
 /* ================================
@@ -70,35 +45,18 @@ header {
   overflow: hidden;
 }
 
-/* Center logo absolutely */
 .logo {
   position: absolute;
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 350px;   /* you can change this freely */
-  max-width: 200vw;
+  width: 350px;
+  max-width: 90%;
 }
 
-/* Center the text */
 .header-text {
   text-align: center;
-  margin-top: 140px; /* pushes text below logo */
-}
-
-.header-text h1 {
-  font-size: clamp(2.5rem, 7vw, 3.5rem);
-  letter-spacing: 4px;
-}
-
-.header-text p {
-  color: #aaa;
-  margin-top: 10px;
-}
-
-/* Lock text in center */
-.header-text {
-  text-align: center;
+  margin-top: 140px;
   pointer-events: none;
 }
 
@@ -161,6 +119,26 @@ section p {
 }
 
 /* ================================
+   ABOUT US WINDOW
+================================ */
+.about-window {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 3rem 2rem;
+  background: rgba(15, 15, 15, 0.85);
+  border-radius: 20px;
+  box-shadow: 0 0 60px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.05);
+  text-align: center;
+  backdrop-filter: blur(8px);
+}
+
+.about-window p {
+  color: #ccc;
+  line-height: 1.6;
+}
+
+/* ================================
    SERVICES GRID
 ================================ */
 .services {
@@ -177,7 +155,7 @@ section p {
   box-shadow: 0 0 40px rgba(0,0,0,0.6);
   border: 1px solid rgba(255,255,255,0.05);
   text-align: center;
-  transition: 0.4s ease;
+  transition: 0.4s ease, transform 0.4s ease;
 }
 
 .card:hover {
@@ -209,7 +187,7 @@ button {
   font-weight: 700;
   letter-spacing: 1px;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
@@ -217,71 +195,13 @@ button:hover {
 }
 
 /* ================================
-   RESPONSIVE GRID
+   FACEBOOK BUTTON
 ================================ */
-@media (min-width: 768px) {
-  .services {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* ================================
-   POPUP
-================================ */
-#contactPopup {
-  margin-top: 1rem;
-  padding: 1.2rem;
-  border-radius: 12px;
-  background: black;
-  border: 1px solid rgba(255,255,255,0.1);
-  display: none;
-}
-
-#contactPopup.show {
-  display: block;
-}
-
-/* ================================
-   CTA
-================================ */
-.cta {
-  background: radial-gradient(circle at top, #111, #000);
-  text-align: center;
-  padding: 7rem 2rem;
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.cta h2 {
-  letter-spacing: 4px;
-}
-
-.cta p {
-  color: #aaa;
-  margin-bottom: 2.5rem;
-}
-
-.cta button {
-  padding: 18px 50px;
-  font-size: 1rem;
-}
-
-/* ================================
-   FOOTER
-================================ */
-footer {
-  background: black;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  color: #777;
-  text-align: center;
-  padding: 2rem;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
-}
 .facebook-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: #1877f2; /* Facebook blue */
+  background: #1877f2;
   color: white;
   padding: 14px 30px;
   border-radius: 30px;
@@ -301,9 +221,36 @@ footer {
   height: 20px;
 }
 
-/* Smooth scrolling for anchor links */
-html {
-  scroll-behavior: smooth;
+/* ================================
+   CTA
+================================ */
+.cta {
+  background: radial-gradient(circle at top, #111, #000);
+  text-align: center;
+  padding: 7rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ================================
+   FOOTER
+================================ */
+footer {
+  background: black;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  color: #777;
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+/* ================================
+   RESPONSIVE GRID
+================================ */
+@media (min-width: 768px) {
+  .services {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 </style>
@@ -312,7 +259,7 @@ html {
 <body>
 
 <header>
-  <img src="solarlogo.png.png" class="logo" alt="Solectrics Logo">
+  <img src="solarlogo.png" class="logo" alt="Solectrics Logo">
   <div class="header-text">
     <h1>SOLECTRICS</h1>
     <p>Next-Generation Solar Energy Systems</p>
@@ -343,7 +290,7 @@ html {
     <div class="card">
       <h3>Solar Installation</h3>
       <p>High-efficiency solar panel systems for residential and commercial buildings.</p>
-      <button onclick="window.location.href='installation.html'">Get Started</button>
+      <button id="getStartedBtn">Get Started</button>
     </div>
 
     <div class="card">
@@ -362,11 +309,10 @@ html {
 <section class="cta" id="contact">
   <h2>GO SOLAR</h2>
   <p>Start producing clean energy and cut your electric bill today.</p>
-<button class="facebook-btn" onclick="window.open('https://www.facebook.com/profile.php?id=61564278415675', '_blank')">
-  <img src="facebook2.png" alt="Facebook Logo">
-  Visit Our Facebook
-</button>
-
+  <button class="facebook-btn" onclick="window.open('https://www.facebook.com/profile.php?id=61564278415675', '_blank')">
+    <img src="facebook2.png" alt="Facebook Logo">
+    Visit Our Facebook
+  </button>
 </section>
 
 <footer>
@@ -374,15 +320,23 @@ html {
 </footer>
 
 <script>
-const consultBtn = document.getElementById("consultBtn");
-const contactPopup = document.getElementById("contactPopup");
+  // Contact popup toggle
+  const consultBtn = document.getElementById("consultBtn");
+  const contactPopup = document.getElementById("contactPopup");
+  consultBtn.addEventListener("click", () => {
+    contactPopup.classList.toggle("show");
+  });
 
-consultBtn.addEventListener("click", () => {
-  contactPopup.classList.toggle("show");
-});
+  // Get Started fade-out and navigate
+  const getStartedBtn = document.getElementById("getStartedBtn");
+  getStartedBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    document.body.classList.add("fade-out");
+    setTimeout(() => {
+      window.location.href = "installation.html";
+    }, 700); // match CSS transition
+  });
 </script>
 
 </body>
 </html>
-
-
