@@ -6,6 +6,16 @@
 <title>Solectrics | Solar Energy Solutions</title>
 
 <style>
+  /* Page fade-out animation */
+body.fade-out {
+  animation: fadeOut 0.7s forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-20px); }
+}
+
 /* ===== About Us Windowed Card ===== */
 .about-window {
   max-width: 800px;
@@ -374,4 +384,5 @@ consultBtn.addEventListener("click", () => {
 
 </body>
 </html>
+
 
