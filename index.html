@@ -6,8 +6,33 @@
 <title>Solectrics | Solar Energy Solutions</title>
 
 <style>
+/* ===== About Us Windowed Card ===== */
+.about-window {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 3rem 2rem;
+  background: rgba(15, 15, 15, 0.85); /* semi-transparent dark glass */
+  border-radius: 20px;
+  box-shadow: 0 0 60px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.05);
+  text-align: center;
+  backdrop-filter: blur(8px); /* glass effect */
+}
+
+.about-window h2 {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  margin-bottom: 1rem;
+  letter-spacing: 3px;
+}
+
+.about-window p {
+  font-size: 1.05rem;
+  color: #ccc;
+  line-height: 1.6;
+}
+
 /* ================================
-   BASE STYLES
+   TESLA / SUNPOWER DESIGN SYSTEM
 ================================ */
 * {
   margin: 0;
@@ -20,16 +45,13 @@ body {
   background: #0b0b0b;
   color: #eaeaea;
   line-height: 1.6;
-  scroll-behavior: smooth; /* smooth scrolling */
-  transition: opacity 0.7s, transform 0.7s; /* for fade-out page animation */
 }
-
-/* ================================
-   PAGE FADE-OUT ANIMATION
-================================ */
-body.fade-out {
-  opacity: 0;
-  transform: translateY(-20px);
+.cursor-glow {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255,255,255,0.08), transparent);
+  pointer-events: none;
 }
 
 /* ================================
@@ -45,18 +67,37 @@ header {
   overflow: hidden;
 }
 
+/* Center logo absolutely */
 .logo {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 350px;
-  max-width: 90%;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(-120px) scale(0.8);
+  animation:
+    logoDrop 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    glowBreath 4s ease-in-out infinite;
+  animation-delay: 0.3s, 2s;
+  filter: drop-shadow(0 0 18px rgba(255,255,255,0.35));
 }
 
+/* Center the text */
 .header-text {
   text-align: center;
-  margin-top: 140px;
+  margin-top: 140px; /* pushes text below logo */
+}
+
+.header-text h1 {
+  font-size: clamp(2.5rem, 7vw, 3.5rem);
+  letter-spacing: 4px;
+}
+
+.header-text p {
+  color: #aaa;
+  margin-top: 10px;
+}
+
+/* Lock text in center */
+.header-text {
+  text-align: center;
   pointer-events: none;
 }
 
@@ -71,28 +112,99 @@ header {
 }
 
 /* ================================
-   NAVBAR
+   ENERGY NAVBAR (UPGRADED)
 ================================ */
-nav {
+.energy-nav {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(0,0,0,0.85);
-  backdrop-filter: blur(10px);
+
   display: flex;
   justify-content: center;
-  gap: 2.5rem;
-  padding: 1rem;
+  gap: 3rem;
+
+  padding: 1.2rem 1rem;
+  background: linear-gradient(
+    to right,
+    rgba(0,0,0,0.92),
+    rgba(15,15,15,0.92),
+    rgba(0,0,0,0.92)
+  );
+
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(255,255,255,0.08);
+  overflow: hidden;
 }
 
-nav a {
-  color: white;
-  font-weight: 600;
-  letter-spacing: 1px;
-  font-size: 0.85rem;
-  text-transform: uppercase;
+/* Animated energy line */
+.nav-glow-line {
+  position: absolute;
+  bottom: 0;
+  left: -60%;
+  width: 60%;
+  height: 2px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.9),
+    transparent
+  );
+
+  opacity: 0.7;
+  animation: navEnergySweep 12s ease-in-out infinite;
 }
+
+/* Nav links */
+.energy-nav a {
+  position: relative;
+  color: #eaeaea;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  padding: 0.4rem 0;
+}
+
+/* Hover glow underline */
+.energy-nav a span::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    white,
+    transparent
+  );
+  transform: translateX(-50%);
+  transition: 0.35s ease;
+}
+
+/* Hover effects */
+.energy-nav a:hover span::after {
+  width: 120%;
+}
+
+.energy-nav a:hover {
+  color: white;
+  text-shadow: 0 0 10px rgba(255,255,255,0.4);
+}
+
+/* Energy sweep animation */
+@keyframes navEnergySweep {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(260%);
+  }
+}
+
 
 /* ================================
    SECTIONS
@@ -119,26 +231,6 @@ section p {
 }
 
 /* ================================
-   ABOUT US WINDOW
-================================ */
-.about-window {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 3rem 2rem;
-  background: rgba(15, 15, 15, 0.85);
-  border-radius: 20px;
-  box-shadow: 0 0 60px rgba(0,0,0,0.6);
-  border: 1px solid rgba(255,255,255,0.05);
-  text-align: center;
-  backdrop-filter: blur(8px);
-}
-
-.about-window p {
-  color: #ccc;
-  line-height: 1.6;
-}
-
-/* ================================
    SERVICES GRID
 ================================ */
 .services {
@@ -155,7 +247,7 @@ section p {
   box-shadow: 0 0 40px rgba(0,0,0,0.6);
   border: 1px solid rgba(255,255,255,0.05);
   text-align: center;
-  transition: 0.4s ease, transform 0.4s ease;
+  transition: 0.4s ease;
 }
 
 .card:hover {
@@ -187,7 +279,7 @@ button {
   font-weight: 700;
   letter-spacing: 1px;
   cursor: pointer;
-  transition: 0.3s ease, transform 0.3s ease;
+  transition: 0.3s ease;
 }
 
 button:hover {
@@ -195,13 +287,101 @@ button:hover {
 }
 
 /* ================================
-   FACEBOOK BUTTON
+   RESPONSIVE GRID
 ================================ */
+@media (min-width: 768px) {
+  .services {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ================================
+   POPUP
+================================ */
+#contactPopup {
+  margin-top: 1rem;
+  padding: 1.2rem;
+  border-radius: 12px;
+  background: black;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: none;
+}
+
+#contactPopup.show {
+  display: block;
+}
+.section-divider {
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, #000);
+}
+
+/* ================================
+   CLEAN CTA CONTACT SECTION
+================================ */
+.cta {
+  background: radial-gradient(circle at top, #111, #000);
+  text-align: center;
+  padding: 6rem 2rem;
+}
+
+.cta h2 {
+  letter-spacing: 5px;
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+}
+
+.cta-subtext {
+  max-width: 520px;
+  margin: 0 auto 2.5rem;
+  color: #aaa;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* Facebook button spacing */
+.cta .facebook-btn {
+  margin-bottom: 2rem;
+}
+
+/* Stack numbers vertically */
+.contact-numbers {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  color: #ccc;
+}
+
+/* Subtle glow on numbers */
+.contact-numbers span {
+  opacity: 0.85;
+  transition: 0.3s ease;
+}
+
+.contact-numbers span:hover {
+  opacity: 1;
+  text-shadow: 0 0 8px rgba(255,255,255,0.4);
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+footer {
+  background: black;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  color: #777;
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
 .facebook-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: #1877f2;
+  background: #1877f2; /* Facebook blue */
   color: white;
   padding: 14px 30px;
   border-radius: 30px;
@@ -221,58 +401,250 @@ button:hover {
   height: 20px;
 }
 
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
 /* ================================
-   CTA
+   LOGO CINEMATIC ANIMATION
 ================================ */
-.cta {
-  background: radial-gradient(circle at top, #111, #000);
-  text-align: center;
-  padding: 7rem 2rem;
-  border-top: 1px solid rgba(255,255,255,0.1);
+.logo-wrapper {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
 }
 
-/* ================================
-   FOOTER
-================================ */
-footer {
-  background: black;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  color: #777;
-  text-align: center;
-  padding: 2rem;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
+.logo {
+  width: 100%;
+  opacity: 0;
+  transform: translateY(-120px) scale(0.8);
+  animation: logoDrop 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 0.3s;
+  filter: drop-shadow(0 0 0px rgba(255,255,255,0));
 }
 
-/* ================================
-   RESPONSIVE GRID
-================================ */
-@media (min-width: 768px) {
-  .services {
-    grid-template-columns: repeat(2, 1fr);
+/* Electric energy ring */
+.energy-ring {
+  position: absolute;
+  width: 140%;
+  height: 140%;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.15);
+  opacity: 0;
+  animation: energyPulse 1.6s ease-out forwards;
+  animation-delay: 1s;
+}
+
+/* LOGO DROP */
+@keyframes logoDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-120px) scale(0.8);
+    filter: drop-shadow(0 0 0 rgba(255,255,255,0));
   }
+  60% {
+    opacity: 1;
+    transform: translateY(10px) scale(1.05);
+    filter: drop-shadow(0 0 35px rgba(255,255,255,0.6));
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 18px rgba(255,255,255,0.35));
+  }
+}
+
+/* ENERGY PULSE */
+@keyframes energyPulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.4);
+  }
+}
+.logo {
+  animation:
+    logoDrop 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    glowBreath 4s ease-in-out infinite;
+  animation-delay: 0.3s, 2s;
+}
+
+@keyframes glowBreath {
+  0%, 100% {
+    filter: drop-shadow(0 0 18px rgba(255,255,255,0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 30px rgba(255,255,255,0.55));
+  }
+}
+/* ================================
+   ANIMATED SOLAR BACKGROUND
+================================ */
+.animated-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: radial-gradient(circle at top, #111, #000);
+}
+
+.animated-bg span {
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(
+    circle,
+    rgba(255,255,255,0.06),
+    transparent 60%
+  );
+  animation: solarDrift 30s linear infinite;
+}
+
+/* different layers */
+.animated-bg span:nth-child(1) {
+  top: -30%;
+  left: -20%;
+  animation-duration: 45s;
+}
+
+.animated-bg span:nth-child(2) {
+  top: 10%;
+  left: -40%;
+  animation-duration: 60s;
+  opacity: 0.4;
+}
+
+.animated-bg span:nth-child(3) {
+  top: -20%;
+  left: 20%;
+  animation-duration: 80s;
+  opacity: 0.3;
+}
+
+/* movement */
+@keyframes solarDrift {
+  from {
+    transform: translateX(-20%) translateY(0);
+  }
+  to {
+    transform: translateX(20%) translateY(10%);
+  }
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.2;
+  pointer-events: none;
+}
+header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255,255,255,0.08),
+    transparent 70%
+  );
+  animation: sweep 8s linear infinite;
+}
+
+@keyframes sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+/* ================================
+   SCROLL REVEAL ANIMATIONS
+================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 0.9s ease;
+}
+
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* staggered cards */
+.services .card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 0.8s ease;
+}
+
+.services .card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* CTA animation */
+.cta {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: 1s ease;
+}
+
+.cta.show {
+  opacity: 1;
+  transform: scale(1);
 }
 
 </style>
 </head>
 
 <body>
+<div class="animated-bg">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
 
 <header>
+ <div class="logo-wrapper">
   <img src="solarlogo.png" class="logo" alt="Solectrics Logo">
+  <span class="energy-ring"></span>
+</div>
+
   <div class="header-text">
     <h1>SOLECTRICS</h1>
     <p>Next-Generation Solar Energy Systems</p>
   </div>
 </header>
 
-<nav>
-  <a href="#about">About</a>
-  <a href="#services">Services</a>
-  <a href="#contact">Contact</a>
+<nav class="energy-nav">
+  <div class="nav-glow-line"></div>
+
+  <a href="#about"><span>About</span></a>
+  <a href="#services"><span>Services</span></a>
+  <a href="#contact"><span>Contact</span></a>
 </nav>
 
-<section id="about">
+
+<section id="about" class="reveal">
+
   <div class="about-window">
     <h2>ABOUT US</h2>
     <p>
@@ -283,14 +655,15 @@ footer {
   </div>
 </section>
 
-<section id="services">
+<section id="services" class="reveal">
+
   <h2>SERVICES</h2>
   <div class="services">
 
     <div class="card">
       <h3>Solar Installation</h3>
       <p>High-efficiency solar panel systems for residential and commercial buildings.</p>
-      <button id="getStartedBtn">Get Started</button>
+      <button onclick="window.location.href='installation.html'">Get Started</button>
     </div>
 
     <div class="card">
@@ -298,7 +671,7 @@ footer {
       <p>Discover how much you can save with our solar solutions.</p>
       <button id="consultBtn">Contact Now</button>
       <div id="contactPopup">
-        📞 +63 912 345 6789<br>
+        📞 0995 641 97343 <br>
         📧 solectrics@gmail.com
       </div>
     </div>
@@ -306,37 +679,95 @@ footer {
   </div>
 </section>
 
-<section class="cta" id="contact">
+<section id="contact" class="cta">
   <h2>GO SOLAR</h2>
-  <p>Start producing clean energy and cut your electric bill today.</p>
-  <button class="facebook-btn" onclick="window.open('https://www.facebook.com/profile.php?id=61564278415675', '_blank')">
+
+  <p class="cta-subtext">
+    Start producing clean energy and cut your electric bill today.
+  </p>
+
+  <button class="facebook-btn"
+    onclick="window.open('https://www.facebook.com/profile.php?id=61564278415675', '_blank')">
     <img src="facebook2.png" alt="Facebook Logo">
     Visit Our Facebook
   </button>
+
+  <div class="contact-numbers">
+    <span>📞 0995 641 9734</span>
+    <span>📞 0995 619 8597</span>
+  </div>
 </section>
+
 
 <footer>
   © 2026 Solectrics — Clean Energy. Smarter Future.
 </footer>
 
+
 <script>
-  // Contact popup toggle
-  const consultBtn = document.getElementById("consultBtn");
-  const contactPopup = document.getElementById("contactPopup");
+/* Contact popup */
+const consultBtn = document.getElementById("consultBtn");
+const contactPopup = document.getElementById("contactPopup");
+
+if (consultBtn && contactPopup) {
   consultBtn.addEventListener("click", () => {
     contactPopup.classList.toggle("show");
   });
+}
 
-  // Get Started fade-out and navigate
-  const getStartedBtn = document.getElementById("getStartedBtn");
-  getStartedBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    document.body.classList.add("fade-out");
-    setTimeout(() => {
-      window.location.href = "installation.html";
-    }, 700); // match CSS transition
+/* Scroll reveal */
+const revealItems = document.querySelectorAll(".reveal");
+const cards = document.querySelectorAll(".services .card");
+const cta = document.querySelector(".cta");
+
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+
+        if (entry.target.id === "services") {
+          cards.forEach((card, i) => {
+            setTimeout(() => card.classList.add("show"), i * 150);
+          });
+        }
+
+        if (entry.target.id === "contact") {
+          cta.classList.add("show");
+        }
+
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.2 }
+);
+
+revealItems.forEach(el => observer.observe(el));
+observer.observe(cta);
+
+/* Active nav highlight */
+const navLinks = document.querySelectorAll(".energy-nav a");
+
+window.addEventListener("scroll", () => {
+  let fromTop = window.scrollY + 100;
+
+  navLinks.forEach(link => {
+    let section = document.querySelector(link.getAttribute("href"));
+
+    if (
+      section.offsetTop <= fromTop &&
+      section.offsetTop + section.offsetHeight > fromTop
+    ) {
+      link.style.textShadow = "0 0 14px rgba(255,255,255,0.7)";
+    } else {
+      link.style.textShadow = "none";
+    }
   });
+});
 </script>
+
+
 
 </body>
 </html>
